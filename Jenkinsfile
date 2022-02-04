@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment{
+        NEW_VERSION='1.3.0'
+    }
     stages{
         stage("compile"){
             steps{
@@ -15,10 +18,15 @@ pipeline{
                 }
             }
         }
+        post{
+            always{
+                echo "test is completed"
+            }
+        }
         stage("package"){
             steps{
                 script{
-                    echo"package the code"
+                    echo"package the code ${NEW_VERSION}"
                 }
             }
         }
