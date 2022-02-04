@@ -17,10 +17,10 @@ pipeline{
                     echo "test the code"
                 }
             }
-        }
-        post{
-            always{
-                echo "test is completed"
+            post{
+                always{
+                    echo "test is completed"
+                }
             }
         }
         stage("package"){
