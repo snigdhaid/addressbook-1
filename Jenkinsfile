@@ -47,8 +47,12 @@ pipeline{
             }
         }
         stage("Deploy the docker container"){
-            echo "deploying the app"
-            sh 'sudo docker run -itd -P snigdha76/jmvn-privaterepos:$BUILD_NUMBER'
+            steps{
+                script{
+                    echo "deploying the app"
+                    sh 'sudo docker run -itd -P snigdha76/jmvn-privaterepos:$BUILD_NUMBER'
+                }
+            }
         }
     }    
 }    
