@@ -34,5 +34,21 @@ pipeline{
                 }
             }
         }
+        stage("build the docker image"){
+            steps{
+                script{
+                    echo "building the docker image"
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+            sh 'sudo docker build -t snigdha76/jmvn-privaterepos:$BUILD_NUMBER'
+            sh 'sudo docker login -u $USER -p $PASS'
+            sh  'sudo docker push snigdha76/jmvn-privaterepos:$BUILD_NUMBER'            
+}
+                }
+            }
+        }
+        stage("Deploy the docker container"){
+            echo "deploying the app"
+            sh 'sudo docker run -itd -P snigdha76/jmvn-privaterepos:$BUILD_NUMBER'
+        }
     }    
 }    
