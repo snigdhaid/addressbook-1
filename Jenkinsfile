@@ -39,7 +39,7 @@ pipeline{
                 script{
                     echo "building the docker image"
                     sh 'sudo yum install docker -y'
-                    sh 'systemctl start docker.service'
+                    sh 'sudo systemctl start docker.service'
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                        sh 'sudo docker build -t snigdha76/jmvn-privaterepos:$BUILD_NUMBER .' 
                        sh 'sudo docker login -u $USER -p $PASS'
